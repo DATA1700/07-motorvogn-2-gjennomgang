@@ -23,3 +23,7 @@ Skritt:
 3. sett på klasser til form
 4. sett på klasser til btn
 5. sett på klasser til table
+
+TODO
+- [ ] Lag noen biltyper på DB
+- [ ] Lag generer typer

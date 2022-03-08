@@ -37,9 +37,14 @@ $(() => {
             error: (jqXhr, textStatus, errorMessage) => console.log(errorMessage)
         })
     });
+
+    fetchVehicles();
 })
 
-const fetchVehicles = () => $.get("/api", list => formatList(list))
+const fetchVehicles = () => $.get("/api", list => {
+    formatBrandInput(list);
+    formatList(list);
+})
 
 const formatList = list => {
     let msg = "";
@@ -56,6 +61,24 @@ const formatList = list => {
     }
 
     $("#list").html(msg)
+}
+
+const formatBrandInput = list => {
+    let out = "<select class='form-control' id='chosenCar' onchange='getTypes()'>";
+    let lastBrand = "";
+
+    out += "<option value='' disabled selected>Choose Brand</option>"
+
+    for (const vehicle of list) {
+        if (vehicle.brand !== lastBrand) {
+            out += "<option>" + vehicle.brand + "</option>";
+        }
+        lastBrand = vehicle.brand;
+    }
+
+    out += "</select>";
+
+    $("#brand").html(out);
 }
 
 const inputval = vehicle => {
