@@ -2,39 +2,55 @@
 <html lang="no">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Motorvognregister 1</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script type="module" src="index.js"></script>
 </head>
 <body>
-<h1>Motorvognregister</h1>
-<table>
-    <tr>
-        <td>Eiers personnummer</td>
-        <td>Eiers navn</td>
-        <td>Eiers adresse</td>
-    </tr>
-    <tr>
-        <td><label for="ssn"></label><input type="text" id="ssn"/></td>
-        <td><label for="name"></label><input type="text" id="name"/></td>
-        <td><label for="address"></label><input type="text" id="address"/></td>
-    </tr>
-    <tr>
-        <td>Kjennetegn</td>
-        <td>Bilmerke</td>
-        <td>Biltype</td>
-    </tr>
-    <tr>
-        <td><label for="characteristics"></label><input type="text" id="characteristics"/></td>
-        <td><label for="brand"></label><input type="text" id="brand"/></td>
-        <td><label for="type"></label><input type="text" id="type"/></td>
-    </tr>
-</table>
-<button id="register">Registrer</button>
-<br>
-Alle bilene:
-<div id="list"></div>
-<button id="deleteAll">Slett alle</button>
-<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+
+            <h1>Motorvognregister</h1>
+
+            <form>
+                <div class="form-group">
+                    <label for="ssn">Eiers personnummer</label>
+                    <input class="form-control" type="text" id="ssn"/></div>
+                <div class="form-group">
+                    <label for="name">Eiers navn</label>
+                    <input class="form-control" type="text" id="name"/></div>
+                <div class="form-group">
+                    <label for="address">Eiers adresse</label>
+                    <input class="form-control" type="text" id="address"/></div>
+                <div class="form-group">
+                    <label for="characteristics">Kjennetegn</label>
+                    <input class="form-control" type="text" id="characteristics"/></div>
+                <div class="form-group">
+                    <label for="brand">Bilmerke</label>
+                    <input class="form-control" type="text" id="brand"/></div>
+                <div class="form-group">
+                    <label for="type">Biltype</label>
+                    <input class="form-control" type="text" id="type"/></div>
+            </form>
+
+            <button class="btn btn-primary" id="register">Registrer</button>
+
+        </div>
+
+        <div class="col-md-8">
+
+            <h3>Alle bilene:</h3>
+
+            <div class="table-responsive" id="list"></div>
+
+            <button class="btn btn-danger" id="deleteAll">Slett alle</button>
+
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

@@ -15,3 +15,11 @@ Husk også den linjen her om dere ikke har den (gjør at ting scaler riktig på 
 ```
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ```
+
+Skritt:
+
+1. Sett på meta tag, bootstrap tag
+2. gjør om fra table til form
+3. sett på klasser til form
+4. sett på klasser til btn
+5. sett på klasser til table
