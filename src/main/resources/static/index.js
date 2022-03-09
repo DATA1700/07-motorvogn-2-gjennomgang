@@ -4,8 +4,8 @@ $(() => {
         const name = $("#name");
         const address = $("#address");
         const characteristics = $("#characteristics");
-        const brand = $("#brand");
-        const type = $("#type");
+        const brand = $("#chosenBrand");
+        const type = $("#chosenType");
 
         const vehicle = {
             ssn: ssn.val(),
@@ -23,8 +23,9 @@ $(() => {
             name.val("")
             address.val("")
             characteristics.val("")
-            brand.val("")
-            type.val("")
+            formatBrandInput();
+            resetTypeInput();
+
         } else {
             console.log("Wrong input")
         }
@@ -38,15 +39,21 @@ $(() => {
         })
     });
 
+    //so that we get our dropdown
+    formatBrandInput()
+
+    // so that we get type input
+    resetTypeInput();
+
+    // so that the table loads on reload
     fetchVehicles();
 })
 
-const fetchVehicles = () => $.get("/api", list => {
-    formatBrandInput(list);
-    formatList(list);
+const fetchVehicles = () => $.get("/api/getVehicles", list => {
+    formatVehicleTable(list);
 })
 
-const formatList = list => {
+const formatVehicleTable = list => {
     let msg = "";
 
     if (list.length > 0) {
@@ -63,22 +70,55 @@ const formatList = list => {
     $("#list").html(msg)
 }
 
-const formatBrandInput = list => {
-    let out = "<select class='form-control' id='chosenCar' onchange='getTypes()'>";
+const formatBrandInput = () => $.get("/api/getCars", list => {
+    // let msg = "<select class='form-control' id='chosenBrand' onchange='formatTypeInput()'>";
+    let msg = "<select class='form-control' id='chosenBrand'>";
+
     let lastBrand = "";
 
-    out += "<option value='' disabled selected>Choose Brand</option>"
+    msg += "<option value='' selected hidden disabled>Velg Merke</option>"
 
-    for (const vehicle of list) {
-        if (vehicle.brand !== lastBrand) {
-            out += "<option>" + vehicle.brand + "</option>";
+    for (const car of list) {
+        if (car.brand !== lastBrand) {
+            msg += "<option>" + car.brand + "</option>";
         }
-        lastBrand = vehicle.brand;
+        lastBrand = car.brand;
     }
 
-    out += "</select>";
+    msg += "</select>";
 
-    $("#brand").html(out);
+    $("#brand").html(msg);
+
+    $("#chosenBrand").on("change", formatTypeInput);
+})
+
+const formatTypeInput = () => $.get("/api/getCars", list => {
+    let msg = "<select class='form-control' id='chosenType'>";
+
+    const currentBrand = $("#chosenBrand").val();
+
+    msg += "<option value='' selected hidden disabled>Velg Type</option>"
+
+    for (const car of list) {
+        console.log(car.brand + " " + currentBrand)
+        if (car.brand === currentBrand) {
+            msg += "<option>" + car.type + "</option>";
+        }
+    }
+
+    msg += "</select>";
+
+    $("#type").html(msg);
+})
+
+const resetTypeInput = () => {
+    const msg = "" +
+        "<select disabled name=\"\" id=\"\" class=\"form-control\">\n" +
+            "<option disabled selected value=\"\">Velg merke for å velge type</option>\n" +
+        "</select>"
+
+    $("#type").html(msg);
+
 }
 
 const inputval = vehicle => {
@@ -87,5 +127,5 @@ const inputval = vehicle => {
     else if (vehicle.address === "") return false
     else if (vehicle.characteristics === "") return false
     else if (vehicle.brand === "") return false
-    else return vehicle.type !== "";
+    else return vehicle.type !== "" && vehicle.type != null;
 }

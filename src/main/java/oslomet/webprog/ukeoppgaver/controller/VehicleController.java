@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import oslomet.webprog.ukeoppgaver.model.Car;
 import oslomet.webprog.ukeoppgaver.model.Vehicle;
 import oslomet.webprog.ukeoppgaver.repository.VehicleRepository;
 
@@ -21,9 +22,14 @@ public class VehicleController {
         repo.addVehicle(vehicle);
     }
 
-    @GetMapping("/api")
-    public List<Vehicle> getAll(){
+    @GetMapping("/api/getVehicles")
+    public List<Vehicle> getAllVehicles(){
         return repo.getVehicles();
+    }
+
+    @GetMapping("/api/getCars")
+    public List<Car> getAllCars() {
+        return repo.getCars();
     }
 
     @DeleteMapping("/api")
